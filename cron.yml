@@ -1,0 +1,11 @@
+---
+- name: cron
+  hosts: all
+  tasks:
+  
+    - name: cron
+      cron:
+        name: cronjob
+        user: ansi_user
+        minute: '*/2'
+        job: logger "Learning Ansible"

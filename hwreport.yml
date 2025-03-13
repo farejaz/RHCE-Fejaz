@@ -1,0 +1,47 @@
+---
+- name: report
+  hosts: all
+  tasks:
+  
+    - name: url
+      get_url: 
+        url: http://ec2-54-162-204-86.compute-1.amazonaws.com/hwreport.txt
+        dest: /root/
+
+
+    - name: part1
+      lineinfile:
+        path: /root/hwreport.txt
+        regexp: "^HOST"
+        line: "HOSTNAME={{ ansible_facts['hostname'] | default('NONE') }}"
+
+    - name: part2
+      lineinfile:
+        path: /root/hwreport.txt
+        regexp: "^MEMORY"
+        line: "MEMORY={{ ansible_facts['memtotal_mb'] | default('NONE') }}"
+
+    - name: part3
+      lineinfile:
+        path: /root/hwreport.txt
+        regexp: "^BIOS"
+        line: "BIOS={{ ansible_facts['bios_version'] | default('NONE') }}"
+
+    - name: part4
+      lineinfile:
+        path: /root/hwreport.txt
+        regexp: "^CPU"
+        line: "CPU={{ ansible_facts['processor'] | default('NONE') }}"
+    
+    - name: part5
+      lineinfile:
+        path: /root/hwreport.txt
+        regexp: "^DISK_SIZE_SDA"
+        line: "DISK_SIZE_SDA={{ ansible_facts['devices']['sda']['size'] | default('NONE') }}"
+
+    - name: part6
+      lineinfile:
+        path: /root/hwreport.txt
+        regexp: "^DISK_SIZE_SDB"
+        line: "DISK_SIZE_SDB={{ ansible_facts['devices']['sdb']['size'] | default('NONE') }}"
+

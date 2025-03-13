@@ -1,0 +1,31 @@
+---
+- name: directory
+  hosts: all
+  tasks:
+  
+    - name: create
+      file:
+        path: /devwork
+        state: directory
+        group: ansi_user
+        mode: 02775
+        setype: httpd_sys_content_t
+
+
+    - name: create file
+      file:
+        path: /devwork/index.html
+        state: touch
+
+
+    - name: content
+      copy:
+        content: "Development in progress"
+        dest: /devwork/index.html
+
+
+    - name: create link
+      file:
+        src: /devwork
+        dest: /var/www/html/devwork
+        state: link

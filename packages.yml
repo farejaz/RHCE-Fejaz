@@ -1,0 +1,19 @@
+---
+- name: packages
+  hosts: all
+  tasks:
+  
+    - name: dev, test
+      dnf:
+        name:
+           - mariadb-server
+           - vsftpd
+        state: present
+    - name: prod
+      dnf:
+        name: "@RPM Development Tools"
+        state: present
+    - name: dev
+      dnf:
+        name: '*'
+        state: latest

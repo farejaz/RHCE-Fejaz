@@ -1,0 +1,37 @@
+---
+- name: Webserver
+  hosts: all
+  vars:
+    pkgs:
+     - httpd
+     - firewalld
+  tasks:
+  
+    - name: install packages
+      dnf:
+        name:
+          - httpd
+          - firewalld
+        state: present
+
+    
+    - name: start services
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop: "{{ pkgs }}"
+
+
+    - name: add rules
+      firewalld:
+        service: http
+        immediate: true
+        permanent: true
+        state: enabled
+
+ 
+    - name: index file
+      copy:
+        content: "Learning Ansible"
+        dest: /var/www/html/index.html

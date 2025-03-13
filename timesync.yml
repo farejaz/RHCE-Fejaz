@@ -1,0 +1,11 @@
+---
+- name: timesysnc
+  hosts: controller
+  vars:
+    timesync_ntp_servers:
+      - hostname: node1
+        iburst: true
+
+  roles:
+    - rhel-system-roles.timesync
+
