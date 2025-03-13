@@ -1,0 +1,11 @@
+---
+- name: repo
+  hosts: all
+  tasks:
+    - name: 
+      yum_repository:
+        name: baseos
+        description: BaseOS
+        baseurl: 
+        enabled: yes
+        gpgkey: 

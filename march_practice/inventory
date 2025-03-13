@@ -1,0 +1,18 @@
+[dev]
+node1
+
+[test]
+node2
+
+[webserver]
+node3
+
+[balancers]
+controller
+
+[prod]
+controller ansible_connection=local
+
+[webserver:children]
+prod
+
